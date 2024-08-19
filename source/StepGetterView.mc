@@ -8,8 +8,29 @@ class StepGetterView extends WatchUi.View {
     }
 
     // Load your resources here
-    function onLayout(dc as Dc) as Void {
-        setLayout(Rez.Layouts.MainLayout(dc));
+    function onLayout(dc as Dc) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.clear();
+
+        var midX = dc.getWidth() / 2;
+        var midY = dc.getHeight() / 2;
+
+        dc.drawText(
+            midX,
+            midY - 20,
+            Graphics.FONT_MEDIUM,
+            "Step count:",
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
+
+        var currentSteps = getStepCount();
+        dc.drawText(
+            midX,
+            midY + 20,
+            Graphics.FONT_LARGE,
+            currentSteps,
+            Graphics.TEXT_JUSTIFY_CENTER
+        );
     }
 
     // Called when this View is brought to the foreground. Restore
@@ -21,7 +42,6 @@ class StepGetterView extends WatchUi.View {
     // Update the view
     function onUpdate(dc as Dc) as Void {
         // Call the parent onUpdate function to redraw the layout
-        View.onUpdate(dc);
     }
 
     // Called when this View is removed from the screen. Save the
@@ -30,4 +50,9 @@ class StepGetterView extends WatchUi.View {
     function onHide() as Void {
     }
 
+    private function getStepCount() {
+        var activityInfo = ActivityMonitor.getInfo();
+        var currentStepCount = activityInfo.steps;
+        return currentStepCount;
+    }
 }
