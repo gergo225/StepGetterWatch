@@ -3,6 +3,7 @@
 
     <string id="prompt">Click the menu button</string>
 
-    <string id="menu_label_1">Item 1</string>
-    <string id="menu_label_2">Item 2</string>
+    <string id="today_steps_label">Today's steps</string>
+    <string id="this_week_steps_label">Steps this week</string>
+    <string id="this_month_steps_label">Steps this month</string>
 </strings>

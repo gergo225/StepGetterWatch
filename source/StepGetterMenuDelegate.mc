@@ -9,10 +9,12 @@ class StepGetterMenuDelegate extends WatchUi.MenuInputDelegate {
     }
 
     function onMenuItem(item as Symbol) as Void {
-        if (item == :item_1) {
-            System.println("item 1");
-        } else if (item == :item_2) {
-            System.println("item 2");
+        if (item == :today_steps_label) {
+            System.println("Daily steps");
+        } else if (item == :this_week_steps) {
+            System.println("Weekly steps");
+        } else if (item == :this_month_steps) {
+            System.println("Monthly steps");
         }
     }
 

@@ -1,4 +1,5 @@
 <menu id="MainMenu">
-    <menu-item id="item_1" label="@Strings.menu_label_1" />
-    <menu-item id="item_2" label="@Strings.menu_label_2" />
+    <menu-item id="today_steps" label="@Strings.today_steps_label" />
+    <menu-item id="this_week_steps" label="@Strings.this_week_steps_label" />
+    <menu-item id="this_month_steps" label="@Strings.this_month_steps_label" />
 </menu>
