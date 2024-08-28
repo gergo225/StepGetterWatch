@@ -1,9 +1,16 @@
 import Toybox.Graphics;
 import Toybox.WatchUi;
 
-class StepGetterView extends WatchUi.View {
+enum StepPeriod {
+    DAY,
+    WEEK
+}
 
-    function initialize() {
+class StepGetterView extends WatchUi.View {
+    var period as StepPeriod = DAY;
+
+    function initialize(period as StepPeriod) {
+        self.period = period;
         View.initialize();
     }
 
@@ -51,8 +58,31 @@ class StepGetterView extends WatchUi.View {
     }
 
     private function getStepCount() {
+        switch (self.period) {
+            case DAY:
+                return getTodaysStepCount();
+            case WEEK:
+                return getThisWeekStepCount();
+        }
+
+        return -1;
+    }
+
+    private function getTodaysStepCount() {
         var activityInfo = ActivityMonitor.getInfo();
         var currentStepCount = activityInfo.steps;
         return currentStepCount;
+    }
+
+    private function getThisWeekStepCount() {
+        var history = ActivityMonitor.getHistory();
+        var totalStepCount = 0;
+
+        for (var i = 0; i < history.size(); i += 1) {
+            var dailyStepCount = history[i].steps;
+            totalStepCount += dailyStepCount;
+        }
+
+        return totalStepCount;
     }
 }

@@ -18,7 +18,7 @@ class StepGetterApp extends Application.AppBase {
 
     // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new StepGetterView(), new StepGetterDelegate() ];
+        return [ new StepGetterView(DAY), new StepGetterDelegate() ];
     }
 
 }
