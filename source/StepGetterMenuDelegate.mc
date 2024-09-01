@@ -17,8 +17,7 @@ class StepGetterMenuDelegate extends WatchUi.MenuInputDelegate {
             openView(new StepGetterView(WEEK));
         } else if (item == :seven_days_chart) {
             System.println("Last 7 days chart");
-            var dummyData = new ChartData([1200, 1660, 2000, 400, 1200, 700, 1300]);
-            openView(new BarChartView(dummyData));
+            openView(new BarChartView());
         }
     }
 

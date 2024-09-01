@@ -11,16 +11,21 @@ class ChartData {
 }
 
 class BarChartView extends WatchUi.View {
-    private var data as ChartData;   
-
-    function initialize(data as ChartData) {
-        self.data = data;
+    function initialize() {
         View.initialize();
     }
 
     function onLayout(dc as Dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
+
+        var history = ActivityMonitor.getHistory();
+        var dailySteps = new Array<Number>[history.size()];
+        for (var i = 0; i < history.size(); ++i) {
+            dailySteps[i] = history[i].steps;
+        }
+        var data = new ChartData(dailySteps);
+
         drawChart(dc, data);
     }
 
