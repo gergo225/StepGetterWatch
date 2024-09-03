@@ -19,10 +19,12 @@ class BarChartView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
 
+        var todaysActivity = ActivityMonitor.getInfo();
         var history = ActivityMonitor.getHistory();
-        var dailySteps = new Array<Number>[history.size()];
+        var dailySteps = new Array<Number>[history.size() + 1];
+        dailySteps[0] = todaysActivity.steps;
         for (var i = 0; i < history.size(); ++i) {
-            dailySteps[i] = history[i].steps;
+            dailySteps[i + 1] = history[i].steps;
         }
         var data = new ChartData(dailySteps);
 
