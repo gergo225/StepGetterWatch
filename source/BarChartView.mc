@@ -22,9 +22,9 @@ class BarChartView extends WatchUi.View {
         var todaysActivity = ActivityMonitor.getInfo();
         var history = ActivityMonitor.getHistory();
         var dailySteps = new Array<Number>[history.size() + 1];
-        dailySteps[0] = todaysActivity.steps;
+        dailySteps[dailySteps.size() - 1] = todaysActivity.steps;
         for (var i = 0; i < history.size(); ++i) {
-            dailySteps[i + 1] = history[i].steps;
+            dailySteps[dailySteps.size() - i - 2] = history[i].steps;
         }
         var data = new ChartData(dailySteps);
 
