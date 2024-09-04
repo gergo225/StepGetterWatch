@@ -65,7 +65,7 @@ class BarChartView extends WatchUi.View {
         var barHeights = new Array<Number>[barCount];
         for (var i = 0; i < barCount; ++i) {
             var stepCount = steps[i];
-            var percentageOfMax = stepCount.toFloat() / maxSteps.toFloat();
+            var percentageOfMax = maxSteps != 0 ? stepCount.toFloat() / maxSteps.toFloat() : 0;
             barHeights[i] = (percentageOfMax * maxBarHeight.toFloat()).toNumber();
         }
 
