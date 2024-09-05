@@ -23,6 +23,6 @@ class StepGetterMenuDelegate extends WatchUi.MenuInputDelegate {
 
     private function openView(view as WatchUi.View) {
         WatchUi.popView(WatchUi.SLIDE_DOWN);
-        WatchUi.pushView(view, new StepGetterDelegate(), WatchUi.SLIDE_UP);
+        WatchUi.pushView(view, new StepGetterDelegate(view), WatchUi.SLIDE_UP);
     }
 }

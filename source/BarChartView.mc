@@ -15,15 +15,46 @@ class ChartData {
 
 class BarChartView extends WatchUi.View {
     private const DAYS_OF_WEEK = ["M", "T", "W", "T", "F", "S", "S"];
+    private var currentlySelectedDay = 0;   // 0 is right-most value, increases to the left
+    private var data as ChartData;
 
     function initialize() {
         View.initialize();
+        data = createData();
     }
 
     function onLayout(dc as Dc) {
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.clear();
+        createData();
+        drawView(dc, currentlySelectedDay);
+    }
 
+    function onShow() as Void {
+    }
+
+    function onUpdate(dc as Dc) as Void {
+        drawView(dc, currentlySelectedDay);
+    }
+
+    function onHide() as Void {
+    }
+
+    function moveToNextDay() {
+        if (currentlySelectedDay == 0) {
+            return;
+        }
+        --currentlySelectedDay; // move day to right
+        WatchUi.requestUpdate();
+    }
+
+    function moveToPreviousDay() {
+        if (currentlySelectedDay == data.steps.size() - 1) {
+            return;
+        }
+        ++currentlySelectedDay; // move day to left
+        WatchUi.requestUpdate();
+    }
+
+    private function createData() as ChartData {
         var todaysActivity = ActivityMonitor.getInfo();
         var history = ActivityMonitor.getHistory();
         var dailySteps = new Array<Number>[history.size() + 1];
@@ -35,18 +66,17 @@ class BarChartView extends WatchUi.View {
         var dayOfWeekIndex = getTodaysDayOfWeekIndex();
         var daysOfWeekInitials = getDaysOfWeekInitials((dayOfWeekIndex - dailySteps.size()) % DAYS_OF_WEEK.size(), dailySteps.size());
 
-        var data = new ChartData(dailySteps.reverse(), daysOfWeekInitials);
-
-        drawChart(dc, data);
+        return new ChartData(dailySteps.reverse(), daysOfWeekInitials);
     }
 
-    function onShow() as Void {
-    }
+    private function drawView(dc as Dc, selectedDay as Number) {
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.clear();
 
-    function onUpdate(dc as Dc) as Void {
-    }
-
-    function onHide() as Void {
+        drawChart(dc, data, selectedDay);
+        
+        var selectedDaySteps = data.steps[data.steps.size() - selectedDay - 1];
+        drawSelectedDaySteps(dc, selectedDaySteps);
     }
 
     private function getTodaysDayOfWeekIndex() as Number {
@@ -68,7 +98,7 @@ class BarChartView extends WatchUi.View {
         return initials;
     }
 
-    private function drawChart(dc as Dc, data as ChartData) {
+    private function drawChart(dc as Dc, data as ChartData, selectedDay as Number) {
         dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
  
         var screenHeight = dc.getHeight();
@@ -107,12 +137,25 @@ class BarChartView extends WatchUi.View {
             var barHeight = barHeights[i];
             var barY = screenHeight - barHeight - bottomMargin;
 
+            dc.setColor(Graphics.COLOR_BLUE, Graphics.COLOR_BLACK);
             dc.fillRectangle(barX, barY, barWidth, barHeight);
 
             var textX = barX + barWidth / 2;
             var textY = screenHeight - bottomMargin;
             var text = data.dayOfWeekInitials[i];
+            var textBackground = (i == barCount - selectedDay - 1) ? Graphics.COLOR_BLUE : Graphics.COLOR_BLACK;
+            dc.setColor(Graphics.COLOR_WHITE, textBackground);
             dc.drawText(textX, textY, Graphics.FONT_SMALL, text, Graphics.TEXT_JUSTIFY_CENTER);
         }
+    }
+
+    private function drawSelectedDaySteps(dc as Dc, steps as Number) {
+        var topMargin = 10;
+
+        var textX = dc.getWidth() / 2;
+        var textY = topMargin;
+        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.drawText(textX, textY, Graphics.FONT_XTINY, "Selected day:", Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(textX, textY + 15, Graphics.FONT_SMALL, steps.format("%d"), Graphics.TEXT_JUSTIFY_CENTER);
     }
 }
