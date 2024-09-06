@@ -22,6 +22,11 @@ class StepGetterApp extends Application.AppBase {
         return [view , new StepGetterDelegate(view)];
     }
 
+    function getGlanceView() {
+        var glanceView = new StepsGlanceView();
+        return [glanceView];
+    }
+
 }
 
 function getApp() as StepGetterApp {

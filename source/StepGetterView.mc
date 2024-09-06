@@ -63,7 +63,7 @@ class StepGetterView extends WatchUi.View {
             case DAY:
                 return getTodaysStepCount();
             case WEEK:
-                return getThisWeekStepCount();
+                return getLastSevenDaysStepCount();
         }
 
         return -1;
@@ -75,9 +75,11 @@ class StepGetterView extends WatchUi.View {
         return currentStepCount;
     }
 
-    private function getThisWeekStepCount() {
+    private function getLastSevenDaysStepCount() {
+        var todaysInfo = ActivityMonitor.getInfo();
+        var totalStepCount = todaysInfo.steps;
+
         var history = ActivityMonitor.getHistory();
-        var totalStepCount = 0;
 
         for (var i = 0; i < history.size(); ++i) {
             var dailyStepCount = history[i].steps;
