@@ -4,7 +4,7 @@ import Toybox.WatchUi;
 
 enum StepPeriod {
     DAY,
-    WEEK
+    SEVEN_DAYS
 }
 
 class StepGetterView extends WatchUi.View {
@@ -62,7 +62,7 @@ class StepGetterView extends WatchUi.View {
         switch (self.period) {
             case DAY:
                 return getTodaysStepCount();
-            case WEEK:
+            case SEVEN_DAYS:
                 return getLastSevenDaysStepCount();
         }
 

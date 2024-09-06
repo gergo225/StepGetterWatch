@@ -1,5 +1,5 @@
 <menu id="MainMenu">
     <menu-item id="today_steps" label="@Strings.today_steps_label" />
-    <menu-item id="this_week_steps" label="@Strings.this_week_steps_label" />
+    <menu-item id="seven_days_steps" label="@Strings.seven_days_steps_label" />
     <menu-item id="seven_days_chart" label="@Strings.seven_days_chart_label" />
 </menu>

@@ -4,6 +4,6 @@
     <string id="prompt">Click the menu button</string>
 
     <string id="today_steps_label">Today</string>
-    <string id="this_week_steps_label">This week</string>
+    <string id="seven_days_steps_label">Last 7 days</string>
     <string id="seven_days_chart_label">7 days chart</string>
 </strings>

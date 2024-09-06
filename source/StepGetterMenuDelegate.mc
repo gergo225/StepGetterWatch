@@ -12,9 +12,9 @@ class StepGetterMenuDelegate extends WatchUi.MenuInputDelegate {
         if (item == :today_steps) {
             System.println("Daily steps");
             openView(new StepGetterView(DAY));
-        } else if (item == :this_week_steps) {
-            System.println("Weekly steps");
-            openView(new StepGetterView(WEEK));
+        } else if (item == :seven_days_steps) {
+            System.println("Last 7 days steps");
+            openView(new StepGetterView(SEVEN_DAYS));
         } else if (item == :seven_days_chart) {
             System.println("Last 7 days chart");
             openView(new BarChartView());
