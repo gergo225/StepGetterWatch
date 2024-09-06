@@ -17,6 +17,10 @@ class StepsGlanceView extends WatchUi.GlanceView {
     }
 
     function onUpdate(dc as Dc) {
+        drawGlance(dc);
+    }
+
+    private function drawGlance(dc as Dc) {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
 
         var weekStepCount = getThisWeekStepCount();
@@ -24,8 +28,11 @@ class StepsGlanceView extends WatchUi.GlanceView {
         var lastSevenDaysStepCount = getLastSevenDaysStepCount();
         var lastSevenDaysText = format("Last 7 days: $1$", [lastSevenDaysStepCount]);
 
-        dc.drawText(0, 5, Graphics.FONT_XTINY, weekStepText, Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(0, 25, Graphics.FONT_XTINY, lastSevenDaysText, Graphics.TEXT_JUSTIFY_LEFT);
+        var height = dc.getHeight();
+        var thirdOfHeight = height / 3;
+
+        dc.drawText(0, thirdOfHeight, Graphics.FONT_GLANCE, weekStepText, Graphics.TEXT_JUSTIFY_LEFT);
+        dc.drawText(0, height - thirdOfHeight, Graphics.FONT_GLANCE, lastSevenDaysText, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     private function getThisWeekStepCount() {
